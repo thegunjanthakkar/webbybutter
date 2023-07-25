@@ -95,7 +95,6 @@
         let getTodoList = localStorage.getItem("Todo")
         let TodoListName = "Todo"
         if (!getTodoList) {
-            
             localStorage.setItem(TodoListName, "[]")
         }
         sub.addEventListener("click", (e) => {

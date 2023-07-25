@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple to do list</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .container {
+            margin: auto;
+            width: 500px;
+            background-color: #bbb;
+            padding: 10px;
+            height: 150px;
+            border-radius: 10px;
+        }
+
+        .container ul li {
+            list-style: none;
+        }
+
+        #title {
+            color: black;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: auto;
+        }
+
+        .tasks {
+            display: flex;
+            padding: 10px;
+        }
+
+        #titlec {
+            padding: 10px;
+            border: 2px solid black;
+            border-radius: 10px;
+        }
+
+        #descc {
+            padding: 10px;
+            border: 2px solid black;
+            border-radius: 10px;
+        }
+
+        #submit {
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        #del {
+            padding: 10px;
+            cursor: pointer;
+            background-color: red;
+            border: 1px solid black;
+            color: white;
+        }
+
+        #tasks {
+            display: flex;
+            margin-top: 10px;
+            margin: auto;
+            padding: 15px;
+            width: 500px;
+            border-radius: 10px;
+            /* margin-right: auto; */
+        }
+    </style>
+</head>
+
+<body>
+    <h1 id="title">Simple to do list</h1><br>
+    <div class="container" id="container">
+        <form id="forms">
+            <input type="text" id="titlec" placeholder="Add Description"><br><br>
+            <input type="text" id="descc" placeholder="Add task"><br><br>
+            <input type="submit" id="submit">
+            <button id="del">Delete</button>
+        </form>
+    </div><br><br>
+    <div id="tasks">
+    </div>
+    <script>
+        let sub = document.getElementById("submit")
+        let title = document.getElementById("titlec")
+        let desc = document.getElementById("descc")
+        let del = document.getElementById("del")
+        let getTodoList = localStorage.getItem("Todo")
+        let TodoListName = "Todo"
+        if (!getTodoList) {
+            localStorage.setItem(TodoListName, "[]")
+        }
+        sub.addEventListener("click", (e) => {
+            e.preventDefault(true)
+            setTodo(title.value, desc.value)
+            //localstorage == 2 item == length = 2
+            //for(i=0;i<array.length;i++){
+                //h3 == title == Array[i].title
+                //<p>Array[i].desc</p>
+                //<button id="del" onclick="dele(i)">Delete</button>`
+            // }
+            tasks.innerHTML =
+                `<h3>${title.value}</h3>
+            <p>${desc.value}</p>
+            <button id="del" onclick="dele()">Delete</button>`
+            title.value = ""
+            desc.value = ""
+        })
+        let dele = (e) => {
+            let latestTodo = localStorage.getItem(TodoListName)
+            let parseTodoList = JSON.parse(latestTodo);
+            let a = []
+            let deletedTodo = parseTodoList.splice(0,parseTodoList.length-1);
+            console.log(deletedTodo)
+            localStorage.setItem(TodoListName,JSON.stringify(deletedTodo))
+            // localStorage.removeItem(`indexOf(${desc.value})`)
+            tasks.innerHTML = " "
+        }
+        let setTodo = (title, desc) => {
+            let newTodo = {
+                title,
+                desc
+            }
+            let latestTodo = localStorage.getItem(TodoListName)
+            let parseTodoList = JSON.parse(latestTodo);
+            parseTodoList.push(newTodo)
+            let stringifyTodo = JSON.stringify(parseTodoList)
+            localStorage.setItem(TodoListName, stringifyTodo)
+        }
+
+    </script>
+</body>
+
+</html>

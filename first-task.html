@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form</title>
+</head>
+
+<body>
+    <form>
+        <input type="text" id="name" placeholder="Enter name:" required><br><br>
+        <input type="password" id="pass" placeholder="Enter Password:" required><br><br>
+        <input type="email" id="mail" placeholder="Enter Email:" oninput="validation()" required><br><br>
+        <input type="date" id="bdate" required><br><br>
+        <input type="submit" id="submit" onclick="validation()">
+    </form>
+    <script>
+        let name = document.getElementById("name")
+        let pass = document.getElementById("pass")
+        let mail = document.getElementById("mail")
+        let bdate = document.getElementById("bdate")
+        parseInt(pass.value)
+        const validation = () => {
+            if (pass.value != 123) {
+                alert("Enter valid password")
+            }
+            if (mail.value[0] == "#" || mail.value[0] == "@" || mail.value[0] == "$" || mail.value[0] == "%" || mail.value[0] == "^" || mail.value[0] == "&" || mail.value[0] == "*" || mail.value[0] == "!") {
+                alert("Enter valid email")
+            }
+            document.addEventListener("click", () => {
+                let a = new date()
+                let curryear = a.getFullYear()
+                let birdate = curryear - bdate
+                alert(birdate)
+            })
+        }
+    </script>
+</body>
+
+</html>

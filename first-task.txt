@@ -1,0 +1,6 @@
+Just create one form in that signup form is there
+Need password to be matched
+Email must validate like email
+First name cant contain special character
+Date of birth calendar cant accept 18 years below
+On submit show how many total days spent on earth by date of birth

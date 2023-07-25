@@ -1,0 +1,28 @@
+Task: Create a Simple To-Do List Application
+Objective: The goal of this task is to create a basic to-do list application using HTML, CSS, and JavaScript. This project will help the trainee understand the fundamentals of DOM manipulation, event handling, and basic JavaScript programming concepts.
+
+Instructions:
+Set up the HTML structure:
+Create an HTML file with appropriate tags (<!DOCTYPE html>, <html>, <head>, <body>, etc.).
+
+Add a title to the page (e.g., "Simple To-Do List").
+
+Design the user interface:
+Create an input box where the user can enter tasks.
+Add a button to add tasks to the list.
+Create an empty unordered list (<ul>) to display the tasks.
+
+Implement the functionality:
+When the user enters a task in the input box and clicks the "Add" button, the task should be added to the list.
+Validate the input to ensure that empty tasks are not added to the list.
+Clear the input box after adding a task.
+
+Add the ability to mark tasks as completed:
+When a task is clicked, it should be marked as completed (e.g., by changing its text color or style).
+
+Add the ability to delete tasks:
+Add a delete button (e.g., "X" or a trash icon) to each task in the list.
+When the delete button is clicked, the corresponding task should be removed from the list.
+
+Optional: Add local storage support:
+Store the to-do list items in the browser's local storage so that they persist even after the page is refreshed.

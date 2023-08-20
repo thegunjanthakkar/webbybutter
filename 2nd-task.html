@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple to do list</title>
+    <link rel="shortcut icon" href="image.jpeg" type="image/jpeg">
+    <title>Todo list</title>
     <style>
         * {
             margin: 0;
@@ -15,10 +16,11 @@
         .container {
             margin: auto;
             width: 500px;
-            background-color: #bbb;
+            background-color: #ccc;
             padding: 10px;
-            height: 150px;
+            height: 200px;
             border-radius: 10px;
+            border: 1px solid black;
         }
 
         .container ul li {
@@ -31,6 +33,7 @@
             align-items: center;
             justify-content: center;
             margin: auto;
+            padding-top: 10px;
         }
 
         .tasks {
@@ -40,27 +43,32 @@
 
         #titlec {
             padding: 10px;
-            border: 2px solid black;
+            border: 1px solid black;
             border-radius: 10px;
         }
 
         #descc {
-            padding: 10px;
-            border: 2px solid black;
+            padding: 15px;
+            border: 1px solid black;
             border-radius: 10px;
         }
 
         #submit {
             padding: 10px;
             cursor: pointer;
+            background-color: #0d6efd;
+            color: white;
+            border-style: none;
+            border-radius: 6px;
         }
 
-        #del {
+        .del {
             padding: 10px;
             cursor: pointer;
             background-color: red;
-            border: 1px solid black;
             color: white;
+            border-style: none;
+            border-radius: 6px;
         }
 
         #tasks {
@@ -72,68 +80,85 @@
             border-radius: 10px;
             /* margin-right: auto; */
         }
+
+        .dtask {
+            padding: 10px;
+        }
+
+        .title {
+            padding-bottom: 5px;
+            font-size: 25px;
+        }
     </style>
 </head>
 
 <body>
-    <h1 id="title">Simple to do list</h1><br>
+    <h1 id="title">Todo list</h1><br>
     <div class="container" id="container">
         <form id="forms">
-            <input type="text" id="titlec" placeholder="Add Description"><br><br>
-            <input type="text" id="descc" placeholder="Add task"><br><br>
+            <input type="text" id="titlec" placeholder="Add Task"><br><br>
+            <textarea id="descc" placeholder="Add Description"></textarea><br><br>
             <input type="submit" id="submit">
-            <button id="del">Delete</button>
+            <button class="del" type="button">Delete</button>
         </form>
     </div><br><br>
     <div id="tasks">
     </div>
     <script>
-        let sub = document.getElementById("submit")
-        let title = document.getElementById("titlec")
-        let desc = document.getElementById("descc")
-        let del = document.getElementById("del")
-        let getTodoList = localStorage.getItem("Todo")
-        let TodoListName = "Todo"
-        if (!getTodoList) {
-            localStorage.setItem(TodoListName, "[]")
-        }
+        let sub = document.getElementById("submit");
+        let title = document.getElementById("titlec");
+        let desc = document.getElementById("descc");
+        let tasksContainer = document.getElementById("tasks");
+        let TodoListName = "Todo";
+        let getTodoList = JSON.parse(localStorage.getItem(TodoListName)) || [];
+
         sub.addEventListener("click", (e) => {
-            e.preventDefault(true)
-            setTodo(title.value, desc.value)
-            //localstorage == 2 item == length = 2
-            //for(i=0;i<array.length;i++){
-                //h3 == title == Array[i].title
-                //<p>Array[i].desc</p>
-                //<button id="del" onclick="dele(i)">Delete</button>`
-            // }
-            tasks.innerHTML =
-                `<h3>${title.value}</h3>
-            <p>${desc.value}</p>
-            <button id="del" onclick="dele()">Delete</button>`
-            title.value = ""
-            desc.value = ""
-        })
-        let dele = (e) => {
-            let latestTodo = localStorage.getItem(TodoListName)
-            let parseTodoList = JSON.parse(latestTodo);
-            let a = []
-            let deletedTodo = parseTodoList.splice(0,parseTodoList.length-1);
-            console.log(deletedTodo)
-            localStorage.setItem(TodoListName,JSON.stringify(deletedTodo))
-            // localStorage.removeItem(`indexOf(${desc.value})`)
-            tasks.innerHTML = " "
-        }
-        let setTodo = (title, desc) => {
-            let newTodo = {
-                title,
-                desc
+            e.preventDefault();
+            setTodo(title.value, desc.value);
+            renderTasks();
+            title.value = "";
+            desc.value = "";
+        });
+
+        let renderTasks = () => {
+            tasksContainer.innerHTML = "";
+            for (let i = 0; i < getTodoList.length; i++) {
+                tasksContainer.innerHTML += `
+                <div class="dtask">
+                    <h3 class="title">${getTodoList[i].title}</h3>
+                    <p class="desc">${getTodoList[i].desc}</p><br>
+                    <button class="del" onclick="dele(${i})">Delete</button><br>
+                    </div>`;
             }
-            let latestTodo = localStorage.getItem(TodoListName)
-            let parseTodoList = JSON.parse(latestTodo);
-            parseTodoList.push(newTodo)
-            let stringifyTodo = JSON.stringify(parseTodoList)
-            localStorage.setItem(TodoListName, stringifyTodo)
-        }
+        }; //for display tasks
+
+        let dele = (index) => {
+            if (confirm("Do you reallywant to delete?") == true) {
+                getTodoList.splice(index, 1);
+                localStorage.setItem(TodoListName, JSON.stringify(getTodoList));
+                renderTasks();
+            }
+        };
+
+        let setTodo = (title, desc) => {
+            if (title.trim() !== "" && desc.trim() !== "") {
+                let newTodo = {
+                    title,
+                    desc,
+                };
+                getTodoList.push(newTodo);
+                localStorage.setItem(TodoListName, JSON.stringify(getTodoList));
+            }
+            else {
+                alert("Blank tasks can not be submitted!")
+            }
+        };
+
+
+        // Initial rendering of tasks
+        renderTasks();
+
+
 
     </script>
 </body>

@@ -1,0 +1,4 @@
+git init -- initialize repository in local
+
+________________
+git add.

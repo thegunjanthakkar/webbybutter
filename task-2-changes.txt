@@ -1,0 +1,11 @@
+css js separate files
+localstorage approch change: [
+{
+title:title.value,
+desc:desc.value
+},
+{
+title:title.value,
+desc:desc.value
+}
+]
